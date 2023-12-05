@@ -12,6 +12,10 @@ import sys
 original_stdout = sys.stdout
 original_stderr = sys.stderr
 
+
+# Define the path for the log file in the /storage directory
+log_file_path = "/storage/console_logs.txt"
+
 # Create/open a file to write logs
 log_file_path = "console_logs.txt"
 log_file = open(log_file_path, "w")
