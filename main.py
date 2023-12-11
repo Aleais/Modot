@@ -6,21 +6,20 @@ import asyncio
 from discord.ext import commands
 import os
 import time
+import datetime
 import sys
 
 # Save the original stdout and stderr
 original_stdout = sys.stdout
 original_stderr = sys.stderr
 
-# Define the path for the log file in the /storage directory
-
 # Create/open a file to write logs
 log_file_path = "console_logs.txt"
 log_file = open(log_file_path, "a")
+
 log_file.write("Logs: \n")
 log_file.write("\n\nBooting up...\n"
 + f"Time: {time.strftime('%Y-%m-%d %H:%M:%S')}\n") 
-
 log_file.write(f"Python version: {sys.version}\n"
 + f"System version: {sys.version_info}\n"
 + f"Discord.py version: {discord.__version__}\n"
@@ -40,7 +39,7 @@ command3="embedded-text-builder"
 command4="help"
 command5="server-count"
 command6="about-me"
-
+command7="feedback"
 f1=f"time: {time.strftime('%Y-%m-%d %H:%M:%S')}"
 
 # Replace "TOKEN" with your actual Discord bot token
@@ -91,56 +90,16 @@ async def on_shutdown():
     sys.stdout = original_stdout
     sys.stderr = original_stderr
     log_file.close()
-
-# Class for the modal 'Embedded Text'
-class EmbeddedTextModal(discord.ui.Modal, title="Embedded Text Maker"):
-    def __init__(self):
-        super().__init__()
-
-        # Components for the modal
-        self.title_input = discord.ui.TextInput(placeholder="Title", custom_id="title_input", label="Title", style=discord.TextStyle.short, required=False, max_length=30, row=0)
-        self.color_input = discord.ui.TextInput(placeholder="Color (hex)", custom_id="color_input", label="Color", style=discord.TextStyle.short, required=True, row=1)
-        self.description_input = discord.ui.TextInput(placeholder="Description", custom_id="description_input", label="Description", style=discord.TextStyle.long, required=True, max_length=1000, row=2)
-        self.thumbnail_input = discord.ui.TextInput(placeholder="Thumbnail Filename (local)", custom_id="thumbnail_input", label="Thumbnail", style=discord.TextStyle.short, required=False, row=3)
-        self.add_item(self.title_input)
-        self.add_item(self.color_input)
-        self.add_item(self.description_input)
-        self.add_item(self.thumbnail_input)
-        self.add_item(discord.ui.Button(style=discord.ButtonStyle.green, label="Confirm", custom_id="confirm_button"))
-
-    @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green, custom_id="confirm_button")
-    async def on_confirm_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-        title = self.title_input.value
-        description = self.description_input.value
-        color = self.color_input.value
-        thumbnail_filename = self.thumbnail_input.value
-
-        embed1 = discord.Embed(title=title, description=description, color=int(color, 16))
-        embed1.set_footer(text=f"created {time.strftime('%Y-%m-%d %H:%M:%S')}")
-
-        file = None
-        if thumbnail_filename:
-            thumbnail_path = f"local_images/{thumbnail_filename}"
-            file = discord.File(thumbnail_path)
-            embed1.set_thumbnail(url=f"attachment://{thumbnail_filename}")
-        else:
-            embed1.set_thumbnail(url=bot.user.avatar.url)
-
-        self.message = None
-        await interaction.response.send_message(embed=embed1, file=file)
     
-    async def on_submit(self, interaction: discord.Interaction, values: dict):
-        pass
-
 # Ping command
 @bot.tree.command(name=command1, description="Ping the bot!")
 async def ping(interaction: discord.Interaction):
-    await interaction.response.send_message(f"Pong! `{bot.latency:.2f}ms`", emphmeral=True)
+    await interaction.response.send_message(f"Pong! `{bot.latency:.2f}ms`", ephemeral=True)
 
 # custom-response command
 @bot.tree.command(name=command2, description="Make Custom-Responses (under-development)")
 async def custom_response(interaction: discord.Interaction):
-    await interaction.response.send_message("**Hello! I am Modot. \nAnd this is 'custom response builder' would you like to continue?** \n``[Hint: Type 1 to 'continue' or type 2 to 'cancel'.]``")
+    await interaction.response.send_message("**Hello! I am Modot. \nAnd this is 'custom response builder' would you like to continue?** \n``[Hint: Type 1 to 'continue' or type 2 to 'cancel'.]``", ephemeral=True)
 
     def check(response):
         return response.author == interaction.user and response.channel == interaction.channel and response.content in ['1', '2']
@@ -149,7 +108,7 @@ async def custom_response(interaction: discord.Interaction):
         user_response = await bot.wait_for("message", check=check, timeout=30)
 
         if user_response.content == '1':
-            await interaction.followup.send("Okay! Let's get started. \n **What would you like to do?** \n ``[Hint: Type 1 to add a new response, type 2 to edit a response, type 3 to remove a response or type 4 to cancel.]``")
+            await interaction.followup.send("Okay! Let's get started. \n **What would you like to do?** \n ``[Hint: Type 1 to add a new response, type 2 to edit a response, type 3 to remove a response or type 4 to cancel.]``", ephemeral=True)
 
             try:
                 user_response = await bot.wait_for("message", check=check, timeout=30)
@@ -198,16 +157,135 @@ async def custom_response(interaction: discord.Interaction):
 # Embedded-text Maker
 @bot.tree.command(name=command3, description="Make Embedded-Text")
 async def embedded_text(interaction: discord.Interaction):
-    embedded_text_modal = EmbeddedTextModal()
-    message = await interaction.response.send_message(embed=embedded_text_modal.message.embeds[0], components=[embedded_text_modal])
+ await interaction.response.send_message("**Hello! I am Modot. \nAnd this is 'Embedded text builder' would you like to continue?** \n``[Hint: Type 1 to 'continue' or type 2 to 'cancel'.]``", ephemeral=True)
 
-  # Wait for user interaction
-    interaction_data = await bot.wait_for("component_interaction", check=lambda i: i.custom_id == "confirm_button" and i.message.id == message.id and i.user.id == interaction.user.id)
-    # Update the reference in the modal
-    embedded_text_modal.message = message
-    await interaction_data.defer(edit_origin=True)
-    await interaction_data.edit_origin(embed=embedded_text_modal.message.embeds[0], components=[embedded_text_modal])
-    await embedded_text_modal.on_confirm_button(interaction_data.component, interaction_data)
+ def check(response):
+    return response.author == interaction.user and response.channel == interaction.channel and response.content in ['1', '2']
+
+ try:
+    user_response = await bot.wait_for("message", check=check, timeout=30)
+
+    if user_response.content == '1':
+      await interaction.followup.send("Okay! Let's get started. \n**Type down your Embed's Title.** \n``[You've 5 minutes to answer.]``", ephemeral=True)
+      def check(response):
+        return response.author == interaction.user and response.channel == interaction.channel
+
+      try:
+        user_response = await bot.wait_for("message", check=check, timeout=60 * 5)
+        title = user_response.content
+
+        await interaction.followup.send("**Type down your Embed's Description.** \n``[You've 5 minutes to answer.]``", ephemeral=True)
+
+        def check(response):
+          return response.author == interaction.user and response.channel == interaction.channel
+
+        try:
+          user_response = await bot.wait_for("message", check=check, timeout=60 * 5)
+          description = user_response.content
+
+          await interaction.followup.send("**Type down your Embed's Color.** \n``[You've 5 minutes to answer.Type 'skip' to skip.]``", ephemeral=True)
+          def check(response):
+           return response.author == interaction.user and response.channel == interaction.channel
+          try:
+           user_response = await bot.wait_for("message", check=check, timeout=60 * 5)
+           color = user_response.content
+           if color == "skip":
+             color = discord.Color.default()
+           elif color == "red":
+             color = discord.Color.red()
+           elif color == "green":
+             color = discord.Color.green()
+           elif color == "blue":
+             color = discord.Color.blue()
+           elif color == "yellow":
+             color = discord.Color.yellow()
+           elif color == "orange":
+             color = discord.Color.orange()
+           elif color == "purple":
+             color = discord.Color.purple()
+           elif color == "teal":
+             color = discord.Color.teal()
+           elif color == "magenta":
+             color = discord.Color.magenta()
+           elif color == "gold":
+             color = discord.Color.gold()
+           elif color == "dark_gold":
+             color = discord.Color.dark_gold()
+           elif color == "dark_orange":
+             color = discord.Color.dark_orange()
+           elif color == "dark_red":
+             color = discord.Color.dark_red()
+           elif color == "dark_teal":
+             color = discord.Color.dark_teal()
+           elif color == "dark_purple":
+             color = discord.Color.dark_purple()
+           elif color == "dark_magenta":
+             color = discord.Color.dark_magenta()
+           elif color == "dark_grey":
+             color = discord.Color.dark_grey()
+           elif color == "light_grey":
+             color = discord.Color.light_grey()
+           elif color == "darker_grey":
+             color = discord.Color.darker_grey()
+           elif color == "not_quite_black":
+             color = discord.Color.not_quite_black()
+           elif color == "blanched_almond":
+             color = discord.Color.blanched_almond()
+           elif color == "bisque":
+             color = discord.Color.bisque()
+           elif color == "coral":
+             color = discord.Color.coral()
+           elif color == "dark_salmon":
+             color = discord.Color.dark_salmon()
+           elif color == "light_salmon":
+             color = discord.Color.light_salmon()
+           elif color == "light_coral":
+             color = discord.Color.light_coral()
+           elif color == "pale_violet_red":
+             color = discord.Color.pale_violet_red()
+           elif color == "pale_golden_red":
+             color = discord.Color.pale_golden_red()
+           elif color == "pale_turquoise":
+             color = discord.Color.pale_turquoise()
+           elif color == "pale_green":
+             color = discord.Color.pale_green()
+           elif color == "pale_turquoise_green":
+             color = discord.Color.pale_turquoise_green()
+           elif color == "pale_cyan":
+             color = discord.Color.pale_cyan()
+           elif color == "pale_light_blue":
+             color = discord.Color.pale_light_blue()
+           elif color == "pale_blue":
+             color = discord.Color.pale_blue()
+           elif color == "pale_blue_violet":
+             color = discord.Color.pale_blue_violet()
+           elif color == "pale_indigo":
+             color = discord.Color.pale_indigo()
+           elif color == "dark_seagreen":
+             color = discord.Color.dark_seagreen()
+           elif color == "dark_slate_blue":
+             color = discord.Color.dark_slate_blue()
+           else:
+             await interaction.followup.send("Sorry, I didn't understand... Try again!", ephemeral=True)
+           embed1 = discord.Embed(title=title, description=description, color=color, timestamp=datetime.datetime.utcnow())
+           await interaction.followup.send(embed=embed1)
+
+          except asyncio.TimeoutError:
+            await interaction.followup.send("You took too long to respond... Try again!", ephemeral=True)
+        except asyncio.TimeoutError:
+          await interaction.followup.send("You took too long to respond... Try again!", ephemeral=True)
+      except asyncio.TimeoutError:
+        await interaction.followup.send("You took too long to respond... Try again!", ephemeral=True)
+
+    elif user_response.content == '2':
+      await interaction.followup.send("Okay! As your wish... ", ephemeral=True)
+      return
+
+    else:
+      await interaction.followup.send("Sorry, I didn't understand... Try again!", ephemeral=True)
+
+ except asyncio.TimeoutError:
+    await interaction.followup.send("You took too long to respond.", ephemeral=True)
 
 # Help command
 @bot.tree.command(name=command4, description="Shows the Help for Commands")
@@ -237,6 +315,58 @@ title="About me",
     embed3.set_author(name=f"{bot.user}", icon_url=bot.user.avatar.url)
     embed3.set_footer(text=f"Requested by {interaction.user.name}, At {f1}", icon_url=interaction.user.avatar.url)
     await interaction.response.send_message(embed=embed3) 
+
+# Feedback command
+@bot.tree.command(name=command7, description="Give feedback to the developer")
+async def feedback(interaction: discord.Interaction):
+    feedback_log_path = "feedback_logs.txt"
+    feedback_log = open(feedback_log_path, "a")
+    await interaction.response.send_message("**Hello! I am Modot. \nAnd this is 'Feedback picker' would you like to continue?** \n``[Hint: Type 1 to 'continue' or type 2 to 'cancel'.]``", ephemeral=True)
+
+    def check(response):
+        return response.author == interaction.user and response.channel == interaction.channel and response.content in ['1', '2']
+    
+    try:
+        user_response = await bot.wait_for("message", check=check, timeout=60)
+        if user_response.content == '1':
+            sys.stdout = feedback_log
+            sys.stderr = feedback_log
+            await interaction.followup.send("Okay! Now please type down your feedback's description. \n\n[You've 15 min to type down your feedback]", ephemeral=True)
+
+            def check(response):
+                return response.author == interaction.user and response.channel == interaction.channel
+
+            try:
+                user_response = await bot.wait_for("message", check=check, timeout=60 * 15)  # 15 minutes
+                feedback_title = interaction.user.name
+                feedback_description = user_response.content
+                feedback_log.write(f"Feedback from {feedback_title}: {feedback_description} \nAt {f1} \n")
+                feedback_log.write(f"User: {interaction.user.name}, Guild: {interaction.guild.name}\n")
+                feedback_log.write(f"Title: {feedback_title}\nDescription: {feedback_description}\n\n")
+              
+                main_guild_id = int(os.environ['GUILD_ID'])
+                main_guild = bot.get_guild(main_guild_id)
+                feedback_channel_id = int(os.environ['CHANNEL_ID'])
+                feedback_channel = main_guild.get_channel(int(feedback_channel_id))
+
+                if feedback_channel:
+                    await feedback_channel.send(f"New feedback from {interaction.user.name} in {interaction.guild.name}:\n\nTitle: {feedback_title}\nDescription: {feedback_description}")
+
+                await interaction.followup.send("Okay! Thank you for your feedback. \n\n**Feedback** \n"
+                                               f"Title : `{feedback_title}` \nDescription : `{feedback_description}`", ephemeral=True)
+            except asyncio.TimeoutError:
+                await interaction.followup.send("You took too long to respond... Please try again!", ephemeral=True)
+            sys.stdout = original_stdout
+            sys.stderr = original_stderr
+
+        elif user_response.content == '2':
+            await interaction.followup.send("Okay! As your wish... ", ephemeral=True)
+        else:
+            await interaction.user.send("Sorry, I didn't understand... Please try again!", ephemeral=True)
+
+    except asyncio.TimeoutError:
+        await interaction.user.send("You took too long to respond... Please try again!", ephemeral=True)
+    feedback_log.close()
 
 # Run the Bot & Error Msg
 _error_message = f"\n\nI could not find any secret named '{my_secret}' in the Secrets tab."

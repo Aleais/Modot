@@ -1,8 +1,8 @@
-Logs:Logs: 
+Logs: 
 
 
 Booting up...
-Time: 2023-12-08 09:32:41
+Time: 2023-12-10 07:44:57
 Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
 [GCC 10.3.0]
 System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
@@ -10,18 +10,74 @@ Discord.py version: 2.1.1
 Running on: linux
 /home/runner/Bot2/venv/bin/python
 
-[2023-12-08 09:32:41] [INFO    ] discord.client: logging in using static token
-[2023-12-08 09:32:42] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: f55acb908511ced8d5fc2a1d5dca05a6).
-✅ Modot#0831
-✅ Synced 6 commands.
+[2023-12-10 07:44:57] [INFO    ] discord.client: logging in using static token
+[2023-12-10 07:44:59] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: e2780818eaa85c6d7c9b3114168d62e5).
+Logs: 
 
-[2023-12-08 09:33:00] [ERROR   ] discord.app_commands.tree: Ignoring exception in command 'embedded-text-builder'
+
+Booting up...
+Time: 2023-12-11 09:27:48
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 09:27:48] [INFO    ] discord.client: logging in using static token
+[2023-12-11 09:27:50] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: a1fbb2386169ec62d53c388e0adeede9).
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 09:51:25
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 09:51:25] [INFO    ] discord.client: logging in using static token
+[2023-12-11 09:51:27] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: f311899cb7caf6355a385b1929812fe3).
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 09:57:58
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 09:57:58] [INFO    ] discord.client: logging in using static token
+[2023-12-11 09:57:59] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 8502955edb23cec5d22de8dbd15cee18).
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 10:04:34
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 10:04:34] [INFO    ] discord.client: logging in using static token
+[2023-12-11 10:04:36] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 66f55c2d19a52606e62c0bb5eda27f49).
+✅ Modot#0831
+✅ Synced 7 commands.
+
+[2023-12-11 10:05:19] [ERROR   ] discord.app_commands.tree: Ignoring exception in command 'embedded-text-builder'
 Traceback (most recent call last):
   File "/home/runner/Bot2/venv/lib/python3.8/site-packages/discord/app_commands/commands.py", line 862, in _do_call
     return await self._callback(interaction, **params)  # type: ignore
-  File "main.py", line 202, in embedded_text
-    message = await interaction.response.send_message(embed=embedded_text_modal.message.embeds[0], components=[embedded_text_modal])
-AttributeError: 'EmbeddedTextModal' object has no attribute 'message'
+  File "main.py", line 216, in embedded_text
+    colour = COLOR_MAP[color]
+KeyError: 'Black'
 
 The above exception was the direct cause of the following exception:
 
@@ -32,4 +88,50 @@ Traceback (most recent call last):
     return await self._do_call(interaction, transformed_values)
   File "/home/runner/Bot2/venv/lib/python3.8/site-packages/discord/app_commands/commands.py", line 880, in _do_call
     raise CommandInvokeError(self, e) from e
-discord.app_commands.errors.CommandInvokeError: Command 'embedded-text-builder' raised an exception: AttributeError: 'EmbeddedTextModal' object has no attribute 'message'
+discord.app_commands.errors.CommandInvokeError: Command 'embedded-text-builder' raised an exception: KeyError: 'Black'
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 10:08:42
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 10:08:42] [INFO    ] discord.client: logging in using static token
+[2023-12-11 10:08:44] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: bb454e588a22326dd7fdb0b20bd318a6).
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 11:03:41
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 11:03:41] [INFO    ] discord.client: logging in using static token
+[2023-12-11 11:03:43] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: f520fb18a9de38fa9cf7014fee3397d4).
+✅ Modot#0831
+✅ Synced 7 commands.
+
+[2023-12-11 11:24:20] [INFO    ] discord.gateway: Shard ID None has successfully RESUMED session f520fb18a9de38fa9cf7014fee3397d4.
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 11:30:51
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 11:30:51] [INFO    ] discord.client: logging in using static token
+[2023-12-11 11:30:53] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 7b924264296c5a2e4a5ff0e6ff9e1c4d).
