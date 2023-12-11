@@ -8,6 +8,7 @@ import os
 import time
 import datetime
 import sys
+from keep_alive import keep_alive
 
 # Save the original stdout and stderr
 original_stdout = sys.stdout
@@ -372,4 +373,5 @@ async def feedback(interaction: discord.Interaction):
 _error_message = f"\n\nI could not find any secret named '{my_secret}' in the Secrets tab."
 assert my_secret in os.environ, _error_message
 
+keep_alive()
 bot.run(os.getenv(my_secret))

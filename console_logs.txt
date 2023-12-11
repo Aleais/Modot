@@ -135,3 +135,26 @@ Running on: linux
 
 [2023-12-11 11:30:51] [INFO    ] discord.client: logging in using static token
 [2023-12-11 11:30:53] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 7b924264296c5a2e4a5ff0e6ff9e1c4d).
+Logs: 
+
+
+Booting up...
+Time: 2023-12-11 11:37:54
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-11 11:37:54] [INFO    ] discord.client: logging in using static token
+ * Serving Flask app ''
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://172.31.196.4:8080
+[33mPress CTRL+C to quit[0m
+[2023-12-11 11:37:56] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 11af56541b463a56d437ec80cd13cb53).
+✅ Modot#0831
+172.31.196.1 - - [11/Dec/2023 11:37:58] "GET / HTTP/1.1" 200 -
