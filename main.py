@@ -190,87 +190,98 @@ async def embedded_text(interaction: discord.Interaction):
           try:
            user_response = await bot.wait_for("message", check=check, timeout=60 * 5)
            color = user_response.content
-           if color == "skip":
+           if color.lower() == "skip":
              color = discord.Color.default()
-           elif color == "red":
+           elif color.lower() == "red":
              color = discord.Color.red()
-           elif color == "green":
+           elif color.lower() == "green":
              color = discord.Color.green()
-           elif color == "blue":
+           elif color.lower() == "blue":
              color = discord.Color.blue()
-           elif color == "yellow":
+           elif color.lower() == "yellow":
              color = discord.Color.yellow()
-           elif color == "orange":
+           elif color.lower() == "orange":
              color = discord.Color.orange()
-           elif color == "purple":
+           elif color.lower() == "purple":
              color = discord.Color.purple()
-           elif color == "teal":
+           elif color.lower() == "teal":
              color = discord.Color.teal()
-           elif color == "magenta":
+           elif color.lower() == "magenta":
              color = discord.Color.magenta()
-           elif color == "gold":
+           elif color.lower() == "gold":
              color = discord.Color.gold()
-           elif color == "dark_gold":
+           elif color.lower() == "dark_gold":
              color = discord.Color.dark_gold()
-           elif color == "dark_orange":
+           elif color.lower() == "dark_orange":
              color = discord.Color.dark_orange()
-           elif color == "dark_red":
+           elif color.lower() == "dark_red":
              color = discord.Color.dark_red()
-           elif color == "dark_teal":
+           elif color.lower() == "dark_teal":
              color = discord.Color.dark_teal()
-           elif color == "dark_purple":
+           elif color.lower() == "dark_purple":
              color = discord.Color.dark_purple()
-           elif color == "dark_magenta":
+           elif color.lower() == "dark_magenta":
              color = discord.Color.dark_magenta()
-           elif color == "dark_grey":
+           elif color.lower() == "dark_grey":
              color = discord.Color.dark_grey()
-           elif color == "light_grey":
+           elif color.lower() == "light_grey":
              color = discord.Color.light_grey()
-           elif color == "darker_grey":
+           elif color.lower() == "darker_grey":
              color = discord.Color.darker_grey()
-           elif color == "not_quite_black":
+           elif color.lower() == "not_quite_black":
              color = discord.Color.not_quite_black()
-           elif color == "blanched_almond":
+           elif color.lower() == "blanched_almond":
              color = discord.Color.blanched_almond()
-           elif color == "bisque":
+           elif color.lower() == "bisque":
              color = discord.Color.bisque()
-           elif color == "coral":
+           elif color.lower() == "coral":
              color = discord.Color.coral()
-           elif color == "dark_salmon":
+           elif color.lower() == "dark_salmon":
              color = discord.Color.dark_salmon()
-           elif color == "light_salmon":
+           elif color.lower() == "light_salmon":
              color = discord.Color.light_salmon()
-           elif color == "light_coral":
+           elif color.lower() == "light_coral":
              color = discord.Color.light_coral()
-           elif color == "pale_violet_red":
+           elif color.lower() == "pale_violet_red":
              color = discord.Color.pale_violet_red()
-           elif color == "pale_golden_red":
+           elif color.lower() == "pale_golden_red":
              color = discord.Color.pale_golden_red()
-           elif color == "pale_turquoise":
+           elif color.lower() == "pale_turquoise":
              color = discord.Color.pale_turquoise()
-           elif color == "pale_green":
+           elif color.lower() == "pale_green":
              color = discord.Color.pale_green()
-           elif color == "pale_turquoise_green":
+           elif color.lower() == "pale_turquoise_green":
              color = discord.Color.pale_turquoise_green()
-           elif color == "pale_cyan":
+           elif color.lower() == "pale_cyan":
              color = discord.Color.pale_cyan()
-           elif color == "pale_light_blue":
+           elif color.lower() == "pale_light_blue":
              color = discord.Color.pale_light_blue()
-           elif color == "pale_blue":
+           elif color.lower() == "pale_blue":
              color = discord.Color.pale_blue()
-           elif color == "pale_blue_violet":
+           elif color.lower() == "pale_blue_violet":
              color = discord.Color.pale_blue_violet()
-           elif color == "pale_indigo":
+           elif color.lower() == "pale_indigo":
              color = discord.Color.pale_indigo()
-           elif color == "dark_seagreen":
+           elif color.lower() == "dark_seagreen":
              color = discord.Color.dark_seagreen()
-           elif color == "dark_slate_blue":
+           elif color.lower() == "dark_slate_blue":
              color = discord.Color.dark_slate_blue()
+           elif color.lower() == "dark_cyan":
+             color = discord.Color.dark_cyan()
+           elif color.lower() == "dark_turquoise":
+             color = discord.Color.dark_turquoise()
+           elif color.lower() == "dark_violet":
+             color = discord.Color.dark_violet()
+           elif color.lower() == "black":
+             color = discord.Color.black()
+           elif color.lower() == "white":
+             color = discord.Color.white()
+           elif color.lower() == "grey":
+             color = discord.Color.grey()
            else:
              await interaction.followup.send("Sorry, I didn't understand... Try again!", ephemeral=True)
            embed1 = discord.Embed(title=title, description=description, color=color, timestamp=datetime.datetime.utcnow())
            await interaction.followup.send(embed=embed1)
-
           except asyncio.TimeoutError:
             await interaction.followup.send("You took too long to respond... Try again!", ephemeral=True)
         except asyncio.TimeoutError:
@@ -373,5 +384,5 @@ async def feedback(interaction: discord.Interaction):
 _error_message = f"\n\nI could not find any secret named '{my_secret}' in the Secrets tab."
 assert my_secret in os.environ, _error_message
 
-keep_alive()
 bot.run(os.getenv(my_secret))
+keep_alive()
