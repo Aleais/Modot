@@ -1,0 +1,14 @@
+Logs: 
+
+
+Booting up...
+Time: 2023-12-12 09:39:56
+Python version: 3.8.12 (default, Aug 30 2021, 16:42:10) 
+[GCC 10.3.0]
+System version: sys.version_info(major=3, minor=8, micro=12, releaselevel='final', serial=0)
+Discord.py version: 2.1.1
+Running on: linux
+/home/runner/Bot2/venv/bin/python
+
+[2023-12-12 09:39:56] [INFO    ] discord.client: logging in using static token
+[2023-12-12 09:39:58] [INFO    ] discord.gateway: Shard ID None has connected to Gateway (Session ID: 7fe581617a4f958ee80506cdf1856eaf).
